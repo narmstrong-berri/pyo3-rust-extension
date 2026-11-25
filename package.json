@@ -1,0 +1,76 @@
+{
+  "name": "pyo3-boundary",
+  "displayName": "PyO3 Boundary Navigation",
+  "description": "Go to definition across the PyO3 boundary: from Python into the Rust that implements it, and from the Python names Rust calls by string into the Python that defines them.",
+  "version": "0.1.0",
+  "publisher": "naterarmstrong",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:rust"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pyo3Boundary.rebuildIndex",
+        "title": "PyO3 Boundary: Rebuild Index"
+      }
+    ],
+    "configuration": {
+      "title": "PyO3 Boundary",
+      "properties": {
+        "pyo3Boundary.pythonRoots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra directories Python module names resolve from, relative to the workspace folder. Workspace folders and maturin's `python-source` are always searched."
+        },
+        "pyo3Boundary.exclude": {
+          "type": "string",
+          "default": "{**/target/**,**/node_modules/**,**/.git/**,**/.venv/**}",
+          "description": "Glob of Rust and pyproject files left out of the index."
+        },
+        "pyo3Boundary.highlightTestCode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Tint the background of Rust code that only compiles under `cfg(test)`. The color is the `pyo3Boundary.testCodeBackground` theme color."
+        }
+      }
+    },
+    "colors": [
+      {
+        "id": "pyo3Boundary.testCodeBackground",
+        "description": "Background of Rust code that only compiles under cfg(test).",
+        "defaults": {
+          "dark": "#4a90e214",
+          "light": "#2f6fd00f",
+          "highContrast": null,
+          "highContrastLight": null
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "vitest run",
+    "package": "vsce package --out release.vsix",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0",
+    "vitest": "^4.1.10"
+  }
+}
