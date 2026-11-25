@@ -6,6 +6,10 @@
   "publisher": "naterarmstrong",
   "private": true,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/narmstrong-berri/pyo3-rust-extension.git"
+  },
   "engines": {
     "vscode": "^1.90.0"
   },
